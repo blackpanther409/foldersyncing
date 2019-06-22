@@ -6,7 +6,7 @@ import socket
 def sending():
   msg = input('client:')
   global a
-  if msg =='bye':
+  if msg.lower().strip() =='bye':
     a=0
   if len(msg)>0:
     s.send(bytes(msg,"utf-8"))
@@ -15,7 +15,7 @@ def sending():
 def receiving():
   msg = s.recv(1024)
   global a
-  if msg =='bye':
+  if msg.lower().strip()=='bye':
     a=0
   if len(msg)>0:
     print(f'server:{msg.decode("utf-8")}')
