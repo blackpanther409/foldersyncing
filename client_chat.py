@@ -5,6 +5,7 @@ import socket
 #functions for sending and receiving messages
 def sending():
   msg = input('client:')
+  global a
   if msg =='bye':
     a=0
   if len(msg)>0:
