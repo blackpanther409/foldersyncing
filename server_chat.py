@@ -16,11 +16,12 @@ def sending():
 
 def receiving():
   msg = client.recv(1024)
+  msg = msg.decode("utf-8")
   global a
   if msg.lower().strip()=='bye':
     a=0
   if len(msg)>0:
-    print(f'client:{msg.decode("utf-8")}')
+    print(f'client:{msg}')
 
 
 #creating a socket object, by AF_INET we are using IPv4 protocol and by SOCK_STREAM we are using TCP
@@ -37,15 +38,14 @@ client.send(bytes("Welcome to the server!!","utf-8"))         #sending a message
 #chatting starts
 print('Chatting starts...')
 a=0
-a=int(input('enter 1 to continue  or 0 to stop:'))            #user opinion 
+a=int(input('Press 1 to accept the connection(any other key to reject)'))            #user opinion 
 
-while a>0:                                                    #loop for sending  and receivingalternatively
+while a==1:                                                    #loop for sending  and receivingalternatively
   print('receiving message...')
   receiving()
-  if a==0:
+  if a!=1:
     break
   sending()
-
-print('Disconnecting...')
+print(f'User:{address[1]} disconnected from the chat')
 client.close()                                                #the connection is closed    
     
