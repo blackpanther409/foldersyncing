@@ -7,12 +7,18 @@ import socket
 #functions for sending and receiving messages
 def sending():
   msg = input('server:')
+  global a
+  if msg =='bye':
+    a=0
   if len(msg)>0:
     client.send(bytes(msg,"utf-8"))
     print('message sent')
 
 def receiving():
   msg = client.recv(1024)
+  global a
+  if msg=='Bye':
+    a=0
   if len(msg)>0:
     print(f'client:{msg.decode("utf-8")}')
 
@@ -37,7 +43,6 @@ while a>0:                                                    #loop for sending 
   print('receiving message...')
   receiving()
   sending()
-  a=int(input('enter 1 to continue  or 0 to stop:'))
 
 print('Disconnecting...')
 client.close()                                                #the connection is closed    
