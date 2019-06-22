@@ -34,6 +34,8 @@ a=int(input('enter 1 to continue  or 0 to stop:'))        #user opinion
 
 while a>0:
   sending()
+  if a==0:
+    break
   print('receiving message...')                           #loop for receiving and sending alternatively
   receiving()
 print('Disconnecting...')
