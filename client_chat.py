@@ -6,7 +6,7 @@ import socket
 def sending():
   msg = input('client:')
   global a
-  if msg.lower().strip() =='bye':
+  if 'bye' in msg.lower().strip():
     a=0
   if len(msg)>0:
     s.send(bytes(msg,"utf-8"))
@@ -16,18 +16,20 @@ def receiving():
   msg = s.recv(1024)
   msg = msg.decode("utf-8")
   global a
-  if msg.lower().strip()=='bye':
+  if 'bye' in msg.lower().strip():
     a=0
   if len(msg)>0:
     print(f'server:{msg}')
     
 #creating a socket object, by AF_INET we are using IPv4 protocol and by SOCK_STREAM we are using TCP
 s= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-#host='192.168.0.106'
-host=socket.gethostname()
+
+#give the ip address of the server device you wanted to connect to
+host='192.168.0.106'          
+#host=socket.gethostname()
 
 
-s.connect((host,1234))                   #establishing connection with a server on 1234
+s.connect((host,12345))                   #establishing connection with a server on 1234
 
 msg = s.recv(1024)
 print(f'server:{msg.decode("utf-8")}')
