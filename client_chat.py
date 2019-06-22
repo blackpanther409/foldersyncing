@@ -23,8 +23,10 @@ def receiving():
     
 #creating a socket object, by AF_INET we are using IPv4 protocol and by SOCK_STREAM we are using TCP
 s= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-host='192.168.0.106'
-#host=socket.gethostname()
+#host='192.168.0.106'
+host=socket.gethostname()
+
+
 s.connect((host,1234))                   #establishing connection with a server on 1234
 
 msg = s.recv(1024)
@@ -43,6 +45,7 @@ while a==1:
   receiving()
 print(f'User:{host} disconected from the chat')
 s.close()                                                #the connection is closed    
-    
+
+
 
  
