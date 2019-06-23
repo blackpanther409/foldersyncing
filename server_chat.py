@@ -30,8 +30,16 @@ def receiving():
 s= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
 #binding hostname with port number and enabling listen. We can change PORT number 
-PORT = 12345
-s.bind((socket.gethostname(),12345))
+PORT = 1234
+
+'''
+s.bind((socket.gethostname(),1234)) OR  s.bind(('',1234))
+also works instead of s.bind(('0.0.0.0',1234)) but for running server in
+windows you should go with s.bind(('0.0.0.0',1234)) others don't work
+I recommend going through the following link for more clarity
+"https://superuser.com/questions/949428/whats-the-difference-between-127-0-0-1-and-0-0-0-0"
+'''
+s.bind(('0.0.0.0',PORT))
 
 i=1
 while i==1:
@@ -59,6 +67,6 @@ while i==1:
       client.close()                                                #the connection is closed
       i=int(input('Enter 1 to stay online:'))
     except socket.timeout as error:
-      print(error)
+      print('Sorry the client is not responding...')
       break
 print('Closing server..')

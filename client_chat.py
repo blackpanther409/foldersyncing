@@ -29,7 +29,7 @@ host='192.168.0.106'
 #host=socket.gethostname()
 
 
-s.connect((host,12345))                   #establishing connection with a server on 1234
+s.connect((host,1234))                   #establishing connection with a server on 1234
 
 msg = s.recv(1024)
 print(f'server:{msg.decode("utf-8")}')
@@ -37,7 +37,7 @@ print(f'server:{msg.decode("utf-8")}')
 #chatting starts
 print("Chatting starts...")
 a=0
-a=int(input('Press 1 to accept the connection(any other key to reject)'))        #user opinion 
+a=int(input('Press 1 to accept the connection(any other key to reject):'))        #user opinion 
 
 while a==1:
   sending()
