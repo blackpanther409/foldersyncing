@@ -3,10 +3,20 @@
 
 import socket
 
+import spacy
+import json
+nlp = spacy.load("en_core_web_sm")
+info={}
 #timeout for waiting more than 30 sec with no connection established. We can vary it as we wish...
 socket.setdefaulttimeout(30)
 
 #functions for sending and receiving messages
+def handle():
+  with open('chat.txt', 'w') as json_file:
+        info = {"sahithi":{"count":1,"POS":"NOUN"}}
+        json.dump(info, json_file)
+  with open('chat.txt') as json_file:
+        info=json.load(json_file)
 def sending():
   msg = input('server:')
   global a
@@ -24,6 +34,26 @@ def receiving():
     a=0
   if len(msg)>0:
     print(f'client:{msg}')
+
+    global info
+    msg=nlp(msg)
+    try:
+      with open('chat.txt') as json_file:
+        info=json.load(json_file)
+    except json.decoder.JSONDecodeError:
+      handle()
+    except FileNotFoundError:
+      handle()
+    #writing
+    with open('chat.txt', 'w') as json_file:
+      print("WORD"+' '*9+"COUNT"+' '*3+"POS")
+      for i in msg:                             #in place of new give new text
+        if i.text.lower() not in info:
+          info[i.text.lower()]={"count":1,"POS":i.pos_}
+        else:
+          info[i.text.lower()]["count"]=info[i.text.lower()]["count"]+1
+        print(f"{i.text:10}    {info[i.text.lower()]['count']}     {i.pos_}")
+      json.dump(info, json_file)     
 
 
 #creating a socket object, by AF_INET we are using IPv4 protocol and by SOCK_STREAM we are using TCP

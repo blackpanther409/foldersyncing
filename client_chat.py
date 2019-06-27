@@ -25,8 +25,8 @@ def receiving():
 s= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
 #give the ip address of the server device you wanted to connect to
-host='192.168.0.106'          
-#host=socket.gethostname()
+#host='192.168.0.106'          
+host=socket.gethostname()
 
 
 s.connect((host,1234))                   #establishing connection with a server on 1234
@@ -43,11 +43,10 @@ while a==1:
   sending()
   if a!=1:
     break
-  print('receiving message...')                           #loop for receiving and sending alternatively
-  receiving()
+  try:
+    print('receiving message...')                           #loop for receiving and sending alternatively
+    receiving()
+  except ConnectionAbortedError:
+    break
 print(f'User:{host} disconected from the chat')
-s.close()                                                #the connection is closed    
-
-
-
- 
+s.close()                                                #the connection is closed
