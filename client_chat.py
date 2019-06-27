@@ -24,14 +24,14 @@ def receiving():
 #creating a socket object, by AF_INET we are using IPv4 protocol and by SOCK_STREAM we are using TCP
 s= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
-#give the ip address of the server device you wanted to connect to
+#give the ip address of the server device you wanted to connect to, to the host variable
 #host='192.168.0.106'          
-host=socket.gethostname()
+host=socket.gethostname()                                 #getting local host address, when you wanted your local host to be the server socket
 
 
-s.connect((host,1234))                   #establishing connection with a server on 1234
+s.connect((host,1234))                                    #establishing connection with a server on 1234
 
-msg = s.recv(1024)
+msg = s.recv(1024)                                        #getting a default message of welcome from server
 print(f'server:{msg.decode("utf-8")}')
 
 #chatting starts
@@ -40,13 +40,13 @@ a=0
 a=int(input('Press 1 to accept the connection(any other key to reject):'))        #user opinion 
 
 while a==1:
-  sending()
+  sending()                                               #sending message
   if a!=1:
     break
   try:
-    print('receiving message...')                           #loop for receiving and sending alternatively
-    receiving()
-  except ConnectionAbortedError:
+    print('receiving message...')                         #loop for receiving and sending alternatively
+    receiving()                                           #receiving message
+  except ConnectionAbortedError:                          #error handling incase connection is forcibly closed         
     break
 print(f'User:{host} disconected from the chat')
-s.close()                                                #the connection is closed
+s.close()                                                 #the connection is closed
