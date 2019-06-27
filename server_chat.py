@@ -48,13 +48,13 @@ def receiving():
       handle()
     #writing
     with open('chat.txt', 'w') as json_file:
-      print("WORD"+' '*9+"COUNT"+' '*3+"POS")
+      #print("WORD"+' '*9+"COUNT"+' '*3+"POS")
       for i in msg:                             
         if i.text.lower() not in info:
           info[i.text.lower()]={"count":1,"POS":i.pos_}
         else:
           info[i.text.lower()]["count"]=info[i.text.lower()]["count"]+1
-        print(f"{i.text:10}    {info[i.text.lower()]['count']}     {i.pos_}")
+        #print(f"{i.text:10}    {info[i.text.lower()]['count']}     {i.pos_}")
       json.dump(info, json_file)     
 
 
